@@ -13,9 +13,11 @@ const SearchBar = (props) => {
           onSubmit={(e) => {
             props.setSearchText(text);
             e.preventDefault();
+            document.getElementById('sidebar').style.display = "none";
           }}
         >
           <input
+            id="textarea"
             className="form-control me-2"
             type="search"
             placeholder="Search"

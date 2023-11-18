@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Logo from "../components/Logo";
 import SearchBar from "../components/SearchBar";
 import Videos from "../components/Videos";
@@ -6,12 +6,17 @@ import { useState, useEffect } from "react";
 import Spinner from "../components/Spinner";
 import LoadingBar from "react-top-loading-bar";
 import NoResult from "../components/NoResult";
+import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("new");
   const [searchData, setSearchData] = useState([]);
+  // const searchData = useRef([])
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [nextPage, setNextPage] = useState("");
+  const [cumResults, setCumResults] = useState(50);
+  const [totalResults, setTotalResults] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +39,10 @@ const Home = () => {
         setProgress(65);
         // console.log(result.items)
         setSearchData(result.items);
+        // searchData.current = result.items
+        // console.log(searchData)
+        setTotalResults(result.pageInfo.totalResults);
+        setNextPage(result.nextPageToken);
         setProgress(100);
         setLoading(false);
       } catch (error) {
@@ -54,12 +63,30 @@ const Home = () => {
           background: "black",
           alignItems: "center",
         }}
+        className="fixed-top"
       >
         <Logo setSearchText={setSearchText} />
         <SearchBar setSearchText={setSearchText} />
       </div>
-      {/* {console.log(searchData)} */}
-      {loading === true ? <Spinner /> : (searchData.length !== 0 ? <Videos searchData={searchData} /> : <NoResult/>)}
+      <div className="d-flex">
+        <Sidebar setSearchText={setSearchText}/>
+        {loading === true ? (
+          <Spinner />
+        ) : searchData.length !== 0 ? (
+          <Videos
+            searchData={searchData}
+            setSearchData={setSearchData}
+            nextPage={nextPage}
+            setNextPage={setNextPage}
+            searchText={searchText}
+            cumResults={cumResults}
+            setCumResults={setCumResults}
+            totalResults={totalResults}
+          />
+        ) : (
+          <NoResult />
+        )}
+      </div>
     </>
   );
 };
