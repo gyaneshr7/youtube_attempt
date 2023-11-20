@@ -1,7 +1,10 @@
 import React from "react";
 import { logo } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
+
 
 const Logo = (props) => {
+  const navigate = useNavigate()
   return (
     <img
       src={logo}
@@ -14,7 +17,9 @@ const Logo = (props) => {
       }}
       onClick={() => {
         props.setSearchText("new");
+        if(document.getElementById('sidebar'))
         document.getElementById("sidebar").style.display = "flex";
+        navigate('/')
       }}
     />
   );

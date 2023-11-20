@@ -1,4 +1,6 @@
 import React from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const Sidebar = (props) => {
@@ -14,12 +16,8 @@ const Sidebar = (props) => {
     cursor: "pointer",
   };
 
-  const [category, setCategory] = useState("New");
-
-  // const selectCategory = (e) => {
-  //   setCategory(e.target.value)
-  //   console.log(e.target.value)
-  // }
+  // const [category, setCategory] = useState("New");
+  const category = useRef("New");
 
   return (
     <div
@@ -33,6 +31,8 @@ const Sidebar = (props) => {
         borderRightStyle: "solid",
         padding: "5px",
         height: "fit-content",
+        position: "sticky",
+        top: "3rem",
       }}
     >
       <div
@@ -48,14 +48,15 @@ const Sidebar = (props) => {
           cursor: "pointer",
           background:
             document.getElementById("new") &&
-            document.getElementById("new").innerText === category
+            document.getElementById("new").innerText === category.current
               ? "red"
               : "black",
         }}
         onClick={() => {
-          setCategory("New");
+          // setCategory("New");
+          category.current = "New";
           props.setSearchText("New");
-          document.getElementById("textarea").value = ""
+          document.getElementById("textarea").value = "";
         }}
       >
         New
@@ -74,19 +75,20 @@ const Sidebar = (props) => {
           cursor: "pointer",
           background:
             document.getElementById("Sports") &&
-            document.getElementById("Sports").innerText === category
+            document.getElementById("Sports").innerText === category.current
               ? "red"
               : "black",
         }}
         onClick={() => {
-          setCategory("Sports");
-          props.setSearchText("Sports")
-          document.getElementById("textarea").value = ""
+          // setCategory("Sports");
+          category.current = "Sports";
+          props.setSearchText("Sports");
+          document.getElementById("textarea").value = "";
         }}
       >
         Sports
       </div>
-      
+
       <div
         id="Music"
         style={{
@@ -100,19 +102,20 @@ const Sidebar = (props) => {
           cursor: "pointer",
           background:
             document.getElementById("Music") &&
-            document.getElementById("Music").innerText === category
+            document.getElementById("Music").innerText === category.current
               ? "red"
               : "black",
         }}
         onClick={() => {
-          setCategory("Music");
-          props.setSearchText("Music")
-          document.getElementById("textarea").value = ""
+          // setCategory("Music");
+          category.current = "Music";
+          props.setSearchText("Music");
+          document.getElementById("textarea").value = "";
         }}
       >
         Music
       </div>
-     
+
       <div
         id="Technology"
         style={{
@@ -126,14 +129,15 @@ const Sidebar = (props) => {
           cursor: "pointer",
           background:
             document.getElementById("Technology") &&
-            document.getElementById("Technology").innerText === category
+            document.getElementById("Technology").innerText === category.current
               ? "red"
               : "black",
         }}
         onClick={() => {
-          setCategory("Technology");
-          props.setSearchText("Technology")
-          document.getElementById("textarea").value = ""
+          // setCategory("Technology");
+          category.current = "Technology";
+          props.setSearchText("Technology");
+          document.getElementById("textarea").value = "";
         }}
       >
         Technology

@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = (props) => {
   const [text, setText] = useState("");
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar bg-body-primary">
@@ -13,7 +15,9 @@ const SearchBar = (props) => {
           onSubmit={(e) => {
             props.setSearchText(text);
             e.preventDefault();
-            document.getElementById('sidebar').style.display = "none";
+            navigate('/');
+            if (document.getElementById("sidebar"))
+              document.getElementById("sidebar").style.display = "none";
           }}
         >
           <input

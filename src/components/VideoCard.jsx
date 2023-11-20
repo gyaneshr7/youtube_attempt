@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "./VideoCard.css";
+import { Link } from "react-router-dom";
 
 const VideoCard = (props) => {
   const slicedTitle = props.title.slice(0, 60);
@@ -15,27 +16,18 @@ const VideoCard = (props) => {
       className="video-card text-center"
       style={{ cursor: "pointer", width: "fit-content" }}
     >
-      <a
-        href={`https://www.youtube.com/watch?v=${props.videoID}`}
-        target="_blank"
-        rel="noreferrer"
-      >
+      <Link to={`/video/${props.videoID}`}>
         <img
           src={videoData.thumbnailUrl}
           alt={videoData.title}
           style={thumbnailStyle}
         />
-      </a>
+      </Link>
       <div
         className="video-details d-flex flex-column align-items-start"
         style={detailsContainerStyle}
       >
-        <a
-          href={`https://www.youtube.com/watch?v=${props.videoID}`}
-          target="_blank"
-          rel="noreferrer"
-          style={{ textDecoration: "none" }}
-        >
+        <Link to={`/video/${props.videoID}`}>
           <div className="text-start">
             <h3
               className="titleHeading"
@@ -43,7 +35,7 @@ const VideoCard = (props) => {
               dangerouslySetInnerHTML={{ __html: videoData.title }}
             ></h3>
           </div>
-        </a>
+        </Link>
 
         <div className="hover">
           <p
